@@ -20,6 +20,10 @@ public class Converter {
         return Integer.toHexString(dec);
     }
     
+    public String decimalToBinary(int dec){
+        return Integer.toBinaryString(dec);
+    }
+    
     public String octalToHex(String oct){
         //return Integer.toOctalString(oct);
         

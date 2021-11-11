@@ -13,6 +13,7 @@ public class MNEMONICO {
     public String operationCode = "";
     public String operationCodeOnly = "";
     
+    
     public MNEMONICO(String mne, String dirM, int insL, String opC, String opCOnly){
         this.mnemonico = mne;
         this.dirMode = dirM;

@@ -45,9 +45,8 @@ public class EditorFrame extends javax.swing.JFrame {
         controlArchivo = new CrearArchivo();
         rutaGuardarComo = new GenerarRuta();
         
-        //abrirArchivo("C:\\Users\\AnthonySandoval\\Desktop\\pruebasASM.txt");
-        //abrirArchivo("C:\\Users\\AnthonySandoval\\Desktop\\P9.asm");
-        //areaAux.setText("ORG $4000\nABA\nADCA #30\nADCA $30\nADCA $300\nADCA %1111");
+        //Ruta para hacer pruebas con un archivo y no tenerlo que estar abriendo
+        //abrirArchivo("C:\\Users\\AnthonySandoval\\Desktop\\P12.asm");
     }
 
     @SuppressWarnings("unchecked")

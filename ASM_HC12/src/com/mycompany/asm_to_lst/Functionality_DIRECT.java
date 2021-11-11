@@ -15,20 +15,20 @@ public class Functionality_DIRECT {
     Converter converter = new Converter();
     
     public Functionality_DIRECT(){
-        
+
     }
     
     public CodeLine findDirective(String directive, String text, int currentIndex, int org, List<LABEL> labels, String label){
         i = currentIndex;
         
         if(directive.equals("ORG")){
-            return isORG(text, currentIndex);
+            return isORG(text, currentIndex, org, labels, label);
         }else if(directive.equals("END")){
             return isEND(text, currentIndex, org, labels, label);
         }else if(directive.equals("EQU")){
             return isEQU(text, currentIndex, org, labels, label);
         }else if(directive.equals("START")){
-            return isStart(text, currentIndex);
+            return isStart(text, currentIndex, org, labels, label);
         }else if(directive.equals("DC.B")){
             return isDC_B(text, currentIndex, org);
         }else if(directive.equals("DC.W")){
@@ -193,7 +193,7 @@ public class Functionality_DIRECT {
         return values;
     }
     
-    public CodeLine isORG(String text, int cI){
+    public CodeLine isORG(String text, int cI, int currentOrg, List<LABEL> labels, String currentLabel){
         CodeLine cl = new CodeLine();
         String operator = "";
         String currentValue = "";
@@ -217,6 +217,12 @@ public class Functionality_DIRECT {
         cl.setOperator(operator);
         cl.setOperatorString(operator);
         cl.setCurrentIndex(i);
+        
+        if(currentLabel.length() != 0){
+            if(!existLabel(labels, currentLabel)){
+                labels.add(new LABEL(currentLabel, "$" + getFormatedHex(Integer.toHexString(currentOrg), 2)));
+            }
+        }
         
         return cl;
     }
@@ -255,15 +261,16 @@ public class Functionality_DIRECT {
         cl.setOperatorString(operator);
         cl.setCurrentIndex(i);
         
-        if(!existLabel(labels, currentLabel)){
-            labels.add(new LABEL(currentLabel, "$" + getFormatedHex(opNotSimbol, 2)));
+        if(currentLabel.length() != 0){
+            if(!existLabel(labels, currentLabel)){
+                labels.add(new LABEL(currentLabel, "$" + getFormatedHex(opNotSimbol, 2)));
+            }
         }
-        
         
         return cl;  
     }
     
-    public CodeLine isStart(String text, int cI){
+    public CodeLine isStart(String text, int cI, int currentOrg, List<LABEL> labels, String currentLabel){
         CodeLine cl = new CodeLine();
         String hexOrg = "0x0"; //Cadena para definir la direccion de ORG
         int org = 0; //valor para incrementar la direccion de ORG
@@ -276,6 +283,12 @@ public class Functionality_DIRECT {
         cl.setContloc(org);
         cl.setMnemORdir("START");
         cl.setCurrentIndex(i);
+        
+        if(currentLabel.length() != 0){
+            if(!existLabel(labels, currentLabel)){
+                labels.add(new LABEL(currentLabel, "$" + getFormatedHex(Integer.toHexString(currentOrg), 2)));
+            }
+        }
         
         return cl;
     }

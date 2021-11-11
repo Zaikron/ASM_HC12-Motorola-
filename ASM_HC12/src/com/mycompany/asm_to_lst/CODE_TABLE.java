@@ -55,10 +55,25 @@ public class CODE_TABLE {
         table.add(new MNEMONICO("ADDD", "EXT", 3, "F3 hh ll", "F3"));
         
         table.add(new MNEMONICO("BNE", "REL", 2, "26 rr", "26"));
+        table.add(new MNEMONICO("BNE", "FDR", 2, "26 rr", "26"));
         table.add(new MNEMONICO("LBNE", "REL", 4, "18 26 qq rr", "18 26"));
         table.add(new MNEMONICO("BEQ", "REL", 2, "27 rr", "27"));
         table.add(new MNEMONICO("LBEQ", "REL", 4, "18 27 qq rr", "18 27"));
         table.add(new MNEMONICO("DBEQ", "REL", 3, "04 lb rr", "04"));
+        table.add(new MNEMONICO("IBNE", "REL", 3, "04 lb rr", "04"));
+        table.add(new MNEMONICO("JMP", "EXT", 3, "06 hh ll", "06"));
+        
+        table.add(new MNEMONICO("LDAA", "IMM", 2, "86 ii", "86"));
+        table.add(new MNEMONICO("LDAA", "DIR", 2, "96 dd", "96"));
+        table.add(new MNEMONICO("LDAA", "EXT", 3, "B6 hh ll", "B6"));
+        
+        table.add(new MNEMONICO("LDAA", "IDX1", 2, "A6 xb", "A6"));
+        table.add(new MNEMONICO("LDAA", "IDX2_9", 3, "A6 xb ff", "A6"));
+        table.add(new MNEMONICO("LDAA", "IDX2_16", 4, "A6 xb ee ff", "A6"));
+        table.add(new MNEMONICO("LDAA", "IDX3", 4, "A6 xb ee ff", "A6"));
+        table.add(new MNEMONICO("LDAA", "IDX5", 2, "A6 xb", "A6"));
+        table.add(new MNEMONICO("LDAA", "IDX6", 2, "A6 xb", "A6"));
+        table.add(new MNEMONICO("LDAA", "FDR", 0, "A6 xb", "A6"));
     }
     
     public void initLabels(){
@@ -93,7 +108,7 @@ public class CODE_TABLE {
                 }
             }else{ //Si encuentra un espacio o salto significa que se termino la palabra
                 //Se comprueba que la palabra sea un mnemonico
-                System.out.println("->> " + currentWord);
+                //System.out.println("->> " + currentWord);
                 if(isMnemonico(currentWord)){
                     transformedText = setMnemonico(text, viewMode, currentWord, transformedText, "");
                 }else if(isDirective(currentWord)){
@@ -128,7 +143,7 @@ public class CODE_TABLE {
         }else if(viewMode.equals("CONTLOC")){
             transformedText += cl.getContlocString() + "\t" + cl.getMnemonicoObj().operationCodeOnly + " " +
                     getOnlyValue_OPCode(cl.getOperator()) + "\t" + et + "\t" + cl.getMnemonicoObj().mnemonico +
-                    "\t" + cl.getOperatorString()+ "\n";
+                    " " + cl.getOperatorString()+ " " + cl.getFormula() + "\n";
         }
 
         //Se le suman los bytes utilizados del mnemonico
@@ -150,7 +165,7 @@ public class CODE_TABLE {
                 cl.getOperator() + "\n";
         }else if(viewMode.equals("CONTLOC")){
             transformedText += formatCONTLOC + "\t" + cl.getCOP() + "\t" + et + "\t"
-                + cl.getMnemORdir() + "\t" + cl.getOperator() + "\n";
+                + cl.getMnemORdir() + " " + cl.getOperator() + "\n";
         }
         
         formatCONTLOC = Integer.toHexString(cl.getContloc());

@@ -18,7 +18,7 @@ public class CodeLine {
     String label = "";
     int currentIndex = 0;
     MNEMONICO mnemonicoObj = new MNEMONICO();
-    
+    String formula = "";
     
     public CodeLine(){
         
@@ -111,6 +111,15 @@ public class CodeLine {
     public void setContlocString(String contlocString) {
         this.contlocString = contlocString;
     }
+
+    public String getFormula() {
+        return formula;
+    }
+
+    public void setFormula(String formula) {
+        this.formula = formula;
+    }
+    
     
     
     
